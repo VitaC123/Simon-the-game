@@ -1,4 +1,85 @@
 body {
     margin: 3%;
     font-size: 16px;
+    background: whitesmoke;
 }
+
+img {
+    visibility: hidden;
+    position: absolute;
+    top: -0.1rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    opacity: 0.6;
+    z-index: 10;
+}
+
+.simonApp {
+       margin: auto;
+       background: pink;
+}
+
+.outerCircle {
+    position: relative;
+    margin: auto;
+    height: 38em;
+    width: 38em;
+    border-radius: 100%;
+    box-shadow: 0.25em 0.25em 0.25em 0.12em #0c1115;
+    background: linear-gradient(to right, #131522, #020816, #242b33);
+}
+
+.innerCircle {
+    position: relative;
+    top: -28.7em;
+    margin: auto;
+    height: 18em;
+    width: 18em;
+    border-radius: 100%;
+    /*background: #020816;*/
+    background: white;
+}
+/*
+.button {
+    position: relative;
+    height: 15.05em;
+    width: 14.5em;
+    border-radius: 0.9em 8em 0.5em 100%;
+    box-shadow: 0.25em 0.25em 0.25em 0.12em #0c1115;
+    cursor: pointer;
+}
+
+.yellowButton {
+    top: -36em;
+    left: 11em;
+    margin-bottom: -15.05em;
+    transform: rotate(90deg);
+    background: linear-gradient(to right, #fff301, #e9de00);
+}
+
+.blueButton {
+    top: -35.85em;
+    left: 28em;
+    margin-bottom: -15.05em;
+    transform: rotate(180deg);
+    background: linear-gradient(to right, #0096f3, #008ef2);
+}
+
+.redButton {
+    top: -18.5em;
+    left: 10.1em;
+    margin-bottom: -15.05em;
+    background: linear-gradient(to right, #f66e5e, #db0003);
+}
+
+.greenButton {
+    top: -18.5em;
+    left: 28em;
+    margin-bottom: -15.05em;
+    transform: rotate(270deg);
+    background: linear-gradient(to right, #02a300, #00ae22);
+}*/
+
+
+

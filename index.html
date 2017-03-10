@@ -2,47 +2,73 @@
 <html>
 
 <head>
-    <title>Simon</title>
+  <meta charset="UTF-8">
+  <title>Simon - in progress</title>
+  <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One" rel="stylesheet">
 
-    <!--<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>-->
-    <link rel="stylesheet" href="style.css">
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+
+  <link rel="stylesheet" href="style.css">
+
+
 </head>
 
 <body>
+  <!-- <img src="https://static1.squarespace.com/static/5509b13ce4b07f1f960ce802/t/565e9a6fe4b02e4017dfa641/1449040496600/"></img> -->
 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
 
-
-    <img src="https://static1.squarespace.com/static/5509b13ce4b07f1f960ce802/t/565e9a6fe4b02e4017dfa641/1449040496600/"></img>
-    <div class="simonApp">
-
-        <div class="outerCircle">
-
-
+        <div class="mobileUI btn-group" role="group">
+          <button class="onBtnMobile btn btn-default">On</button>
+          <button class="startBtnMobile btn btn-default">Start</button>
+          <button class="strictBtnMobile btn btn-default">Strict</button>
         </div>
 
-        <div class="yellowButton button"></div>
-        <div class="blueButton button"></div>
-        <div class="redButton button"></div>
-        <div class="greenButton button"></div>
-        
-        <div class="innerCircle"></div>
+        <div class="simonApp">
+          <div class="outerDarkCircle">
+            <div class="innerDarkCircle">
+              <div class="innerLightCircle">
+                <div class="miltonBradleyLogo">M<span>B</span><br><span>ELECTRONICS</span></div>
+                <h1>simon</h1>
+                <div class="scoreCount">00</div>
 
 
+                <div class="strictModeEnable">
+                  <input type="checkbox" name="checkbox" id="strictModeBtn" />
+                  <label for="strictModeBtn">STRICT</label>
+                </div>
 
 
+                <div class="startBtn">
+                  <input type="checkbox" name="checkbox" id="startBtnCheckBox">
+                  <label for="startBtnCheckBox">START</label>
+                </div>
+
+                <label class="switch">
+          <input type="checkbox">
+          <div class="slider"></div>
+        </label>
+
+                <div class="offOnLabel"><span>OFF</span><span>ON</span></div>
+              </div>
+            </div>
+            <div class="yellowButton button"></div>
+            <div class="blueButton button"></div>
+            <div class="redButton button"></div>
+            <div class="greenButton button"></div>
+
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 
+  <script src="index.js"></script>
 
-
-
-
-
-
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="index.js"></script>
 </body>
 
 </html>

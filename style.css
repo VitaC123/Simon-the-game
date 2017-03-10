@@ -1,85 +1,373 @@
 body {
-    margin: 3%;
-    font-size: 16px;
-    background: whitesmoke;
+  margin: 3%;
+  font-size: 16px;
+  font-family: helvetica, arial;
+  background: whitesmoke;
+  color: black;
 }
 
 img {
-    visibility: hidden;
-    position: absolute;
-    top: -0.1rem;
-    left: 0;
-    right: 0;
-    margin: auto;
-    opacity: 0.6;
-    z-index: 10;
+  display: none;
+  position: absolute;
+  top: -0.1rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  opacity: 0.6;
+  z-index: 10;
 }
 
 .simonApp {
-       margin: auto;
-       background: pink;
+  position: relative;
+  top: 8%;
 }
 
-.outerCircle {
-    position: relative;
-    margin: auto;
-    height: 38em;
-    width: 38em;
-    border-radius: 100%;
-    box-shadow: 0.25em 0.25em 0.25em 0.12em #0c1115;
-    background: linear-gradient(to right, #131522, #020816, #242b33);
+.outerDarkCircle {
+  height: 70vh;
+  width: 70vh;
+  margin: auto;
+  border-radius: 100%;
+  box-shadow: 1px 2.5px 16px 3px #0c1115;
+  background: linear-gradient(to right, #131522, #343436, #242b33);
 }
 
-.innerCircle {
-    position: relative;
-    top: -28.7em;
-    margin: auto;
-    height: 18em;
-    width: 18em;
-    border-radius: 100%;
-    /*background: #020816;*/
-    background: white;
+@media (max-width: 685px) {
+  .outerDarkCircle {
+    height: 90vw;
+    width: 90vw;
+  }
 }
-/*
+
+@media (max-height: 685px) {
+  .outerDarkCircle {
+    height: 70vh;
+    width: 70vh;
+  }
+}
+
+.innerDarkCircle {
+  position: relative;
+  top: 25%;
+  height: 50%;
+  width: 50%;
+  margin: auto;
+  margin-bottom: -50%;
+  border-radius: 100%;
+  background: linear-gradient(to right, #23242c, #343436, #2c3035);
+  z-index: 1;
+}
+
+.miltonBradleyLogo {
+  position: relative;
+  top: 5%;
+  height: 14%;
+  width: 14%;
+  margin: auto;
+  margin-bottom: -14%;
+  border-radius: 20%;
+  border: 1px solid black;
+  font-size: 3vw;
+  font-family: helvetica;
+  font-weight: bold;
+  text-align: center;
+  color: #de0e0e;
+  overflow: hidden;
+}
+
+.miltonBradleyLogo > span {
+  color: #0096f3;
+}
+
+.miltonBradleyLogo >:last-child {
+  position: relative;
+  top: -73%;
+  font-size: 0.6vw;
+  font-style: italic;
+  color: black;
+  white-space: nowrap;
+}
+
+.innerLightCircle {
+  position: relative;
+  top: 9.5%;
+  height: 80%;
+  width: 80%;
+  margin: auto;
+  margin-bottom: -80%;
+  border-radius: 100%;
+  background-image: radial-gradient(#808183, #a5b9c2, #717274 80%);
+}
+
+.innerLightCircle > h1 {
+  position: relative;
+  top: 15%;
+  margin: auto;
+  font-size: 8.4vw;
+  font-family: 'Alfa Slab One', arial;
+  text-align: center;
+}
+
+.scoreCount {
+  position: relative;
+  height: 15%;
+  width: 40%;
+  top: 15%;
+  margin: auto;
+  margin-bottom: -15%;
+  padding: 0.5vw;
+  border: 1px solid black;
+  border-radius: 2.5px;
+  box-shadow: 1px 1px 5px #2d3035 inset;
+  background: #680002;
+  background-image: radial-gradient(#5f0000, #510303, #5f0000);
+  text-align: center;
+  font-size: 3vw;
+  color: #880505;
+  font-family: menlo, monospace;
+  transition: 0.3s;
+}
+
+input[type="checkbox"]:empty {
+  display: none;
+}
+
+label {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.strictModeEnable {
+  position: relative;
+  top: 33%;
+  height: 15%;
+  line-height: 1.5vw;
+  margin: auto;
+  margin-bottom: -12%;
+  font-size: 1vw;
+  text-align: center;
+  cursor: pointer;
+}
+
+.strictModeEnable label {
+  padding: 0.25vw;
+  border: 1px solid black;
+  border-radius: 3px;
+  background: #005e9c;
+  text-align: center;
+}
+
+.strictModeEnable input[type="checkbox"]:not(:checked) ~ label {
+  color: black;
+}
+
+.strictModeEnable input[type="checkbox"]:checked ~ label {
+  color: black;
+  background-image: radial-gradient(#0091f2, #009cff, #005e9c);
+}
+
+.startBtn {
+  position: relative;
+  top: 40%;
+  height: 14%;
+  width: 14%;
+  margin: auto;
+  margin-bottom: -14%;
+  border: 0.8vw solid #2d3035;
+  border-radius: 100%;
+  background: #f5423b;
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+}
+
+.startBtn label {
+  position: absolute;
+  font-size: 1vw;
+  line-height: 3vw;
+  height: 100%;
+  top: 0;
+  left: 5%;
+}
+
+.startBtn input[type="checkbox"]:not(:checked) ~ label {
+  color: black;
+}
+
+.startBtn input[type="checkbox"]:checked ~ label {
+  color: black;
+  background-image: radial-gradient(#f5423b, #ffb5ad, #f5423b);
+}
+
+.switch {
+  display: block;
+  position: relative;
+  top: 56%;
+  /*   width: 4vw; */
+  /*   height: 2.6vw; */
+  height: 8%;
+  width: 12%;
+  margin: auto;
+  margin-bottom: -8%;
+  border: 1px solid black;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #010000;
+  cursor: pointer;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "|||";
+  font-size: 2vw;
+  line-height: 2.46vw;
+  height: 2vw;
+  width: 2vw;
+  left: 0.25vw;
+  top: 0.25vw;
+  background-color: #4e4f55;
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+input:checked + .slider:before {
+  transform: translateX(1.5vw);
+}
+
+.offOnLabel {
+  width: 40%;
+  position: relative;
+  top: 57%;
+  margin: auto;
+  text-align: right;
+  font-size: 1.2vw;
+  z-index: 0;
+}
+
+.offOnLabel >:first-child {
+  float: left;
+}
+
+@media (max-height: 685px),
+(min-width: 685px) {
+  .innerLightCircle > h1 {
+    font-size: 7vh;
+  }
+  .miltonBradleyLogo {
+    font-size: 2vh;
+  }
+  .miltonBradleyLogo >:last-child {
+    font-size: 0.5vh;
+    top: -56%;
+  }
+  .scoreCount {
+    font-size: 2.75vh;
+    padding: 0;
+  }
+  .startBtn {
+    border-width: 0.6vh;
+  }
+  .startBtn > label {
+    font-size: 0.75vh;
+    line-height: 3vh;
+  }
+  .switch {
+    height: 2vh;
+    width: 3.25vh;
+  }
+  .slider:before {
+    line-height: 2vh;
+    font-size: 2vh;
+    height: 1.5vh;
+    width: 1.5vh;
+    left: 0.1vh;
+    top: 0.1vh;
+  }
+  input:checked + .slider:before {
+    transform: translateX(1.3vh);
+  }
+  .offOnLabel {
+    font-size: 1vh;
+  }
+  .strictModeEnable {
+    line-height: 1vh;
+    font-size: 0.9vh;
+  }
+}
+
+@media (min-height: 530px) {
+  .slider:before {
+    left: 0;
+    bottom: 0;
+  }
+}
+
 .button {
-    position: relative;
-    height: 15.05em;
-    width: 14.5em;
-    border-radius: 0.9em 8em 0.5em 100%;
-    box-shadow: 0.25em 0.25em 0.25em 0.12em #0c1115;
-    cursor: pointer;
+  position: relative;
+  height: 37%;
+  width: 36%;
+  margin-bottom: -37%;
+  border-radius: 3% 60% 3% 100%;
+  box-shadow: 1px 1px 10px #1d1f20;
+  cursor: pointer;
 }
 
 .yellowButton {
-    top: -36em;
-    left: 11em;
-    margin-bottom: -15.05em;
-    transform: rotate(90deg);
-    background: linear-gradient(to right, #fff301, #e9de00);
+  top: 8%;
+  left: 9%;
+  transform: rotate(90deg);
+  background: linear-gradient(to left, #fbd16b, #e9de00);
 }
 
 .blueButton {
-    top: -35.85em;
-    left: 28em;
-    margin-bottom: -15.05em;
-    transform: rotate(180deg);
-    background: linear-gradient(to right, #0096f3, #008ef2);
+  top: 8.5%;
+  left: 55%;
+  transform: rotate(180deg);
+  background: linear-gradient(to left, #0096f3, #008ef2);
 }
 
 .redButton {
-    top: -18.5em;
-    left: 10.1em;
-    margin-bottom: -15.05em;
-    background: linear-gradient(to right, #f66e5e, #db0003);
+  top: 53%;
+  left: 8.5%;
+  background: linear-gradient(to right, #f66e5e, #db0003);
 }
 
 .greenButton {
-    top: -18.5em;
-    left: 28em;
-    margin-bottom: -15.05em;
-    transform: rotate(270deg);
-    background: linear-gradient(to right, #02a300, #00ae22);
-}*/
+  top: 53%;
+  left: 54.5%;
+  transform: rotate(270deg);
+  background: linear-gradient(to right, #02a300, #00ae22);
+}
 
+.yellowButton:active {
+  background-image: radial-gradient(#fbd16b, #f5ecaf, #e9de00);
+}
 
+.blueButton:active {
+  background-image: radial-gradient(#0091f2, #91c8ec, #005e9c);
+}
 
+.redButton:active {
+  background-image: radial-gradient(#f66e5e, #e4a19e, #db0003);
+}
+
+.greenButton:active {
+  background-image: radial-gradient(#02a300, #69d874, #00ae22);
+}

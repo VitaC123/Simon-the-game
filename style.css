@@ -371,3 +371,15 @@ input:checked + .slider:before {
 .greenButton:active {
   background-image: radial-gradient(#02a300, #69d874, #00ae22);
 }
+
+.mobileBtn {
+  display: none;
+  margin-top: 1em;
+  font-size: 1em;
+}
+
+@media (max-width: 685px) {
+  .mobileBtn {
+    display: inline;
+  }
+}

@@ -184,6 +184,11 @@ label {
   overflow: hidden;
 }
 
+.startBtn:active {
+  color: black;
+  background-image: radial-gradient(#f5423b, #ffb5ad, #f5423b);
+}
+
 .startBtn label {
   position: absolute;
   font-size: 1vw;
@@ -199,7 +204,7 @@ label {
 
 .startBtn input[type="checkbox"]:checked ~ label {
   color: black;
-  background-image: radial-gradient(#f5423b, #ffb5ad, #f5423b);
+  background-image: radial-gradient(#f5423b, #ff8d81, #f5423b);
 }
 
 .switch {
@@ -356,11 +361,11 @@ input:checked + .slider:before {
   background: linear-gradient(to right, #02a300, #00ae22);
 }
 
-.yellowButton:active {
+/*.yellowButton:active {
   background-image: radial-gradient(#fbd16b, #f5ecaf, #e9de00);
-}
+}*/
 
-.blueButton:active {
+/*.blueButton:active {
   background-image: radial-gradient(#0091f2, #91c8ec, #005e9c);
 }
 
@@ -370,7 +375,7 @@ input:checked + .slider:before {
 
 .greenButton:active {
   background-image: radial-gradient(#02a300, #69d874, #00ae22);
-}
+}*/
 
 .mobileBtn {
   display: none;

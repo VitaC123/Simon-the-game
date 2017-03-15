@@ -25,26 +25,19 @@
               <div class="innerLightCircle">
                 <div class="miltonBradleyLogo">M<span>B</span><br><span>ELECTRONICS</span></div>
                 <h1>simon</h1>
-                <div class="scoreCount">00</div>
 
+                <div class="redMessageBox">00</div>
 
                 <div class="strictModeEnable">
-                  <input type="checkbox" name="checkbox" id="strictModeBtn" />
+                  <input type="checkbox" name="checkbox" id="strictModeBtn" class="disabled" />
                   <label for="strictModeBtn">STRICT</label>
                 </div>
 
+                <div class="startBtn disabled">START</div>
 
-                <div class="startBtn">
-                  <input type="checkbox" name="checkbox" id="startBtnCheckBox">
-                  <label for="startBtnCheckBox">START</label>
-                </div>
-
-                <label class="switch">
-          <input type="checkbox">
-          <div class="slider"></div>
-        </label>
-
+                <label class="switch"><input type="checkbox"><div class="onOffButton"></div></label>
                 <div class="offOnLabel"><span>OFF</span><span>ON</span></div>
+
               </div>
             </div>
             <div class="yellowButton button"></div>
@@ -57,34 +50,12 @@
 
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-sm-4">
-        <button class="onBtnMobile mobileBtn btn btn-block btn-default">On</button>
-      </div>
-      <div class="col-sm-4">
-        <button class="startBtnMobile mobileBtn btn btn-block btn-default">Start</button>
-      </div>
-      <div class="col-sm-4">
-        <button class="strictBtnMobile mobileBtn Btn btn btn-block btn-default">Strict</button>
-      </div>
-    </div>
-
   </div>
-
-  <div class="audioSection"></div>
-
-
-  <source src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3" preload="metadata" type="audio/mpeg">
-  <source src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3" preload="metadata" type="audio/mpeg">
-  <source src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3" preload="metadata" type="audio/mpeg">
-  <source src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" preload="metadata" type="audio/mpeg">
-
 
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-
-  <script src="index.js"></script>
+  <script src="js/standard.jWebAudio.min.js"></script>
+  <script src="js/index.js"></script>
 
 </body>
 

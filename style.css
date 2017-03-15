@@ -107,7 +107,7 @@ img {
   text-align: center;
 }
 
-.scoreCount {
+.redMessageBox {
   position: relative;
   height: 15%;
   width: 40%;
@@ -164,7 +164,7 @@ label {
   color: black;
 }
 
-.strictModeEnable input[type="checkbox"]:checked ~ label {
+.strictModeEnable input[type="checkbox"]:checked:not(.disabled) ~ label {
   color: black;
   background-image: radial-gradient(#0091f2, #009cff, #005e9c);
 }
@@ -182,37 +182,25 @@ label {
   cursor: pointer;
   text-align: center;
   overflow: hidden;
-}
-
-.startBtn:active {
-  color: black;
-  background-image: radial-gradient(#f5423b, #ffb5ad, #f5423b);
-}
-
-.startBtn label {
-  position: absolute;
-  font-size: 1vw;
+  font-size: 0.7vw;
   line-height: 3vw;
-  height: 100%;
-  top: 0;
-  left: 5%;
+  font-weight: bold;
+    -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.startBtn input[type="checkbox"]:not(:checked) ~ label {
-  color: black;
-}
-
-.startBtn input[type="checkbox"]:checked ~ label {
-  color: black;
-  background-image: radial-gradient(#f5423b, #ff8d81, #f5423b);
+.startBtn:active:not(.disabled) {
+  background-image: radial-gradient(#f5423b, #ffb5ad, #f5423b);
 }
 
 .switch {
   display: block;
   position: relative;
   top: 56%;
-  /*   width: 4vw; */
-  /*   height: 2.6vw; */
   height: 8%;
   width: 12%;
   margin: auto;
@@ -226,7 +214,7 @@ label {
   display: none;
 }
 
-.slider {
+.onOffButton {
   position: absolute;
   top: 0;
   left: 0;
@@ -238,7 +226,7 @@ label {
   transition: 0.1s;
 }
 
-.slider:before {
+.onOffButton:before {
   position: absolute;
   content: "|||";
   font-size: 2vw;
@@ -252,7 +240,7 @@ label {
   transition: 0.1s;
 }
 
-input:checked + .slider:before {
+input:checked + .onOffButton:before {
   transform: translateX(1.5vw);
 }
 
@@ -282,22 +270,20 @@ input:checked + .slider:before {
     font-size: 0.5vh;
     top: -56%;
   }
-  .scoreCount {
+  .redMessageBox {
     font-size: 2.75vh;
     padding: 0;
   }
   .startBtn {
     border-width: 0.6vh;
-  }
-  .startBtn > label {
-    font-size: 0.75vh;
+    font-size: 0.6vh;
     line-height: 3vh;
   }
   .switch {
     height: 2vh;
     width: 3.25vh;
   }
-  .slider:before {
+  .onOffButton:before {
     line-height: 2vh;
     font-size: 2vh;
     height: 1.5vh;
@@ -305,7 +291,7 @@ input:checked + .slider:before {
     left: 0.1vh;
     top: 0.1vh;
   }
-  input:checked + .slider:before {
+  input:checked + .onOffButton:before {
     transform: translateX(1.3vh);
   }
   .offOnLabel {
@@ -318,7 +304,7 @@ input:checked + .slider:before {
 }
 
 @media (min-height: 530px) {
-  .slider:before {
+  .onOffButton:before {
     left: 0;
     bottom: 0;
   }
@@ -359,32 +345,4 @@ input:checked + .slider:before {
   left: 54.5%;
   transform: rotate(270deg);
   background: linear-gradient(to right, #02a300, #00ae22);
-}
-
-/*.yellowButton:active {
-  background-image: radial-gradient(#fbd16b, #f5ecaf, #e9de00);
-}*/
-
-/*.blueButton:active {
-  background-image: radial-gradient(#0091f2, #91c8ec, #005e9c);
-}
-
-.redButton:active {
-  background-image: radial-gradient(#f66e5e, #e4a19e, #db0003);
-}
-
-.greenButton:active {
-  background-image: radial-gradient(#02a300, #69d874, #00ae22);
-}*/
-
-.mobileBtn {
-  display: none;
-  margin-top: 1em;
-  font-size: 1em;
-}
-
-@media (max-width: 685px) {
-  .mobileBtn {
-    display: inline;
-  }
 }

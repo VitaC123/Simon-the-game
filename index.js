@@ -10,126 +10,162 @@
 
 "use strict";
 
-var game = {
-  activeGame: false,
-  strictMode: false,
-  humanTurn: false,
-  compPattern: [],
-  humanPattern: []
+var game;
+
+function createNewGameInstance() {
+  return {
+    activeGame: false,
+    strictMode: false,
+    humanTurn: false,
+    compPattern: [],
+    humanPattern: [],
+    activateButtons: function () {
+      this.setupStartButton();
+      this.setupStrictModeButton();
+      this.setupColorButtons();
+    },
+    setupStartButton: function () {
+      $(".startBtn").mouseup(function () {
+        if (!game.activeGame) {
+          game.activeGame = true;
+          $(this).off("mouseup");
+          makeCompMove();
+        }
+      });
+    },
+    setupStrictModeButton: function () {
+      $(".strictModeEnable input").click(function () {
+        if (!game.strictMode) {
+          game.strictMode = true;
+        } else {
+          game.strictMode = false;
+        }
+      });
+    },
+    setupColorButtons: function () {
+      $(".button").mousedown(function (event, compMove) {
+        if (game.humanTurn) {
+          var selectedButtonPosition = $(this).index() - 1;
+          displayPattern(selectedButtonPosition);
+          game.humanPattern.push(selectedButtonPosition);
+          $(this).mouseup(function () {
+            $(this).css("background-image", "");
+            compareToCompPattern();
+          });
+        }
+      });
+    },
+
+    audio: {
+      playSample: function (samplePosition) {
+        // Avoids "pop" in audio except by every 10 instances
+        if ($(".audioSection").children().length > 10) {
+          $(".audioSection").html("");
+        }
+        var htmlElem = "<audio autoplay><source src='" + game.audio.samples[samplePosition] + "' ></source></audio>";
+        $(".audioSection").append(htmlElem);
+      },
+      samples: [
+        "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3",
+        "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3",
+        "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3",
+        "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"
+      ],
+    },
+
+    style: (function () {
+      $(".scoreCount").css("color", "#cd1520");
+      $(".scoreCount").text("00");
+    })()
+
+  }
 }
+
 
 $(".slider").click(function () {
-  if (!game.activeGame) {
-    game.activeGame = true;
-    $(".scoreCount").css("color", "#cd1520");
-    // enableButtons();
+  if (!game) {
+    game = createNewGameInstance();
+    game.activateButtons();
   } else {
-    game.activeGame = false;
+    game = null;
     $(".scoreCount").css("color", "#880505");
-    $(".button").off("mousedown");
-  }
-  var turnOnSound = document.getElementById("turnOn");
-  turnOnSound.volume = 0.2;
-  $(".turnOnSound")[0].play();
-});
-
-$(".strictModeEnable input").click(function () {
-  if (!game.strictMode) {
-    game.strictMode = true;
-  } else {
-    game.strictMode = false;
   }
 });
-
-$(".startBtn").mouseup(function () {
-  if (game.activeGame === true) {
-    makeCompMove();
-    $(this).off("mouseup");
-  }
-});
-
-//function enableButtons() {
-$(".button").mousedown(function (event, compMove) {
-  var selectedButton = $(this).index();
-  if (compMove !== undefined) {
-    selectedButton = compMove;
-  }
-
-  $("audio").each(function () { // This works, but causes errors in console
-    this.pause();
-    this.currentTime = 0;
-  });
-
-  var buttonGradient;
-  switch (selectedButton) {
-    case 1:
-      buttonGradient = "radial-gradient(#fbd16b, #f5ecaf, #e9de00)";
-      $(".yellowButtonSound")[0].play();
-      break;
-    case 2:
-      buttonGradient = "radial-gradient(#0091f2, #91c8ec, #005e9c)"
-      $(".blueButtonSound")[0].play();
-      break;
-    case 3:
-      buttonGradient = "radial-gradient(#f66e5e, #e4a19e, #db0003)";
-      $(".redButtonSound")[0].play();
-      break;
-    case 4:
-      buttonGradient = "radial-gradient(#02a300, #69d874, #00ae22)";
-      $(".greenButtonSound")[0].play();
-      break;
-  }
-  $(".button").eq(selectedButton - 1).css("background-image", buttonGradient);
-
-  if (game.humanTurn) {
-    game.humanPattern.push($(this).index());
-    compareToCompPattern();
-    $(this).mouseup(function () {
-      $(this).css("background-image", "");
-    });
-  }
-});
-//}
-
-
 
 function makeCompMove() {
-  console.log("makeCompMove just called!");
-  game.humanTurn = false;
-  game.compPattern.push(Math.floor(Math.random() * 4 + 1));
-  var i = 0;
-  var performCompMoves = setInterval(function () {
-    $(".button").trigger("mousedown", game.compPattern[i]);
-    setTimeout(() => $(".button").css("background-image", ""), 400);
-    i++;
-    if (i > game.compPattern.length - 1) {
-      clearInterval(performCompMoves);
-      setTimeout(() => game.humanTurn = true, 400);
-      game.humanPattern = [];
-      console.log(game.compPattern);
-    }
-  }, 500);
+  if (!game.humanTurn) {
+    console.log("makeCompMove just called");
+    game.compPattern.push(Math.floor(Math.random() * 4));
+    console.log(game.compPattern);
+    var i = 0;
+    var performPattern = setInterval(function () {
+      displayPattern(game.compPattern[i]);
+      if (i < game.compPattern.length - 1) {
+        i++;
+      } else {
+        clearInterval(performPattern);
+        cycleActivePlayer();
+      }
+    }, 500);
+  }
 }
 
+
+function displayPattern(selectedButtonPosition) {
+  game.audio.playSample(selectedButtonPosition);
+  var buttonGradient = "radial-gradient";
+  if (selectedButtonPosition === 0) {
+    buttonGradient += "(#fbd16b, #f5ecaf, #e9de00)";
+  } else if (selectedButtonPosition === 1) {
+    buttonGradient += "(#0091f2, #91c8ec, #005e9c)";
+  } else if (selectedButtonPosition === 2) {
+    buttonGradient += "(#f66e5e, #e4a19e, #db0003)";
+  } else if (selectedButtonPosition === 3) {
+    buttonGradient += "(#02a300, #69d874, #00ae22)";
+  }
+  $(".button").eq(selectedButtonPosition).css("background-image", buttonGradient);
+  if (!game.humanTurn) {
+    setTimeout(() => $(".button").css("background-image", ""), 400);
+  }
+}
+
+
 function compareToCompPattern() {
+  var messageToPlayer = $(".scoreCount");
+  var loseEvent;
   for (var i = 0; i < game.humanPattern.length; i++) {
     if (game.humanPattern[i] !== game.compPattern[i]) {
-      $(".scoreCount").text("Lost!");
+      loseEvent = true;
+      messageToPlayer.text("!!");
       if (game.strictMode) {
+        setTimeout(() => messageToPlayer.text("You"), 1000);
+        setTimeout(() => messageToPlayer.text("Lost"), 2000);
         game.compPattern = [];
       } else {
         // Allow player to try again without reseting game
+        setTimeout(() => messageToPlayer.text("Try"), 1000);
+        setTimeout(() => messageToPlayer.text("Again"), 2000);
       }
       break;
     }
   }
-  if (game.humanPattern.length === game.compPattern.length) {
-    $(".scoreCount").text(game.humanPattern.length);
-    if (game.humanPattern.length < 10) { 
-      $(".scoreCount").prepend("0");
+
+  if (!loseEvent && game.humanPattern.length === game.compPattern.length) {
+    messageToPlayer.text(game.humanPattern.length);
+    if (game.humanPattern.length < 10) {
+      messageToPlayer.prepend("0");
     }
-    console.log("About to call makeCompMove");
+    cycleActivePlayer();
+  }
+}
+
+function cycleActivePlayer() {
+  if (game.humanTurn) {
+    game.humanTurn = false;
     setTimeout(makeCompMove, 500);
+  } else { 
+    game.humanTurn = true;
+    game.humanPattern = [];
   }
 }
 

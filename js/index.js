@@ -3,16 +3,16 @@
 
   var game = {
     initializeNewGame: function () {
-      game.activeGame = false;
+      this.activeGame = false;
       $(".redMessageBox").text("New");
       setTimeout(function () {
-        game.activeGame = true;
-        game.humanTurn = false;
-        game.humanPattern = [];
-        game.compPattern = [];
-        game.generateNewCompMove();
-        game.displayLevel();
-      }, 1500);
+        this.activeGame = true;
+        this.humanTurn = false;
+        this.humanPattern = [];
+        this.compPattern = [];
+        this.displayLevel();
+        this.generateNewCompMove();
+      }.bind(game), 1500);
     },
     displayLevel: function () {
       $(".redMessageBox").text(game.humanPattern.length);
@@ -25,44 +25,45 @@
       game.performCompPattern();
     },
     performCompPattern: function () {
-      game.humanTurn = false;
+      this.humanTurn = false;
       var i = 0;
       var performance = setInterval(function () {
-        ui.display.displayPattern(game.compPattern[i]);
-        if (i < game.compPattern.length - 1 && game.activeGame) {
+        ui.display.displayPattern(this.compPattern[i]);
+        if (i < this.compPattern.length - 1 && this.activeGame) {
           i++;
         } else {
           clearInterval(performance);
-          game.humanPattern = [];
-          game.humanTurn = true;
+          this.humanPattern = [];
+          this.humanTurn = true;
         }
-      }, 500);
+      }.bind(game), 500);
     },
     compareToCompPattern: function () {
       var loseEvent;
-      for (var i = 0; i < game.humanPattern.length; i++) {
-        if (game.humanPattern[i] !== game.compPattern[i]) {
+      for (var i = 0; i < this.humanPattern.length; i++) {
+        if (this.humanPattern[i] !== this.compPattern[i]) {
           loseEvent = true;
-          game.humanTurn = false;
-          $(".redMessageBox").text("!!");
-          if (game.strictMode) {
-            setTimeout(() => $(".redMessageBox").text("You"), 1000);
-            setTimeout(() => $(".redMessageBox").text("Lost"), 2000);
-            setTimeout(game.initializeNewGame, 3000);
-          } else {
-            setTimeout(() => $(".redMessageBox").text("Try"), 1000);
-            setTimeout(() => $(".redMessageBox").text("Again"), 2000);
-            setTimeout(function () {
-              $(".redMessageBox").text("--");
-              game.performCompPattern();
-            }, 3000);
-          }
           break;
         }
       }
-      if (!loseEvent && game.humanPattern.length === game.compPattern.length) {
-        game.displayLevel();
-        if (game.humanPattern.length < 20) {
+      if (loseEvent) {
+        this.humanTurn = false;
+        $(".redMessageBox").text("!!");
+        if (this.strictMode) {
+          setTimeout(() => $(".redMessageBox").text("You"), 1000);
+          setTimeout(() => $(".redMessageBox").text("Lost"), 2000);
+          setTimeout(game.initializeNewGame, 3000);
+        } else {
+          setTimeout(() => $(".redMessageBox").text("Try"), 1000);
+          setTimeout(() => $(".redMessageBox").text("Again"), 2000);
+          setTimeout(function () {
+            $(".redMessageBox").text("--");
+            game.performCompPattern();
+          }, 3000);
+        }
+      } else if (this.humanPattern.length === this.compPattern.length) {
+        this.displayLevel();
+        if (this.humanPattern.length < 20) {
           setTimeout(game.generateNewCompMove, 500);
         } else {
           setTimeout(() => $(".redMessageBox").text("You"), 1000);
@@ -73,6 +74,7 @@
     }
   };
 
+  
   var ui = {
     buttons: {
       setupOnOffButton: (function () {
@@ -96,7 +98,7 @@
         $(".startBtn").mouseup(function () {
           game.initializeNewGame();
           if (!game.activeGame) {
-            $(".startBtn").text("RESTART");
+            $(this).text("RESTART");
           }
         });
       },
@@ -141,10 +143,10 @@
             buttonGradient += "(#02a300, #69d874, #00ae22)";
           }
           $(".button").eq(selectedButtonPosition).css("background-image", buttonGradient);
-          if (!this.humanTurn) {
+          if (!game.humanTurn) {
             setTimeout(() => $(".button").css("background-image", ""), 400);
           }
-        }  
+        }
       }
     },
     audio: {

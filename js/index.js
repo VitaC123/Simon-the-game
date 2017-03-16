@@ -4,21 +4,22 @@
   var game = {
     initializeNewGame: function () {
       this.activeGame = false;
-      $(".redMessageBox").text("New");
+      ui.display.displayMessages("New");
       setTimeout(function () {
         this.activeGame = true;
         this.humanTurn = false;
         this.humanPattern = [];
         this.compPattern = [];
-        this.displayLevel();
+        this.updateLevel();
         this.generateNewCompMove();
       }.bind(game), 1500);
     },
-    displayLevel: function () {
-      $(".redMessageBox").text(game.humanPattern.length);
-      if (game.humanPattern.length < 10) {
-        $(".redMessageBox").prepend("0");
+    updateLevel: function () {
+      var currentLevel = game.humanPattern.length;
+      if (currentLevel < 10) {
+        currentLevel = "0" + currentLevel;
       }
+      ui.display.displayMessages(currentLevel);
     },
     generateNewCompMove: function () {
       game.compPattern.push(Math.floor(Math.random() * 4));
@@ -48,33 +49,26 @@
       }
       if (loseEvent) {
         this.humanTurn = false;
-        $(".redMessageBox").text("!!");
         if (this.strictMode) {
-          setTimeout(() => $(".redMessageBox").text("You"), 1000);
-          setTimeout(() => $(".redMessageBox").text("Lost"), 2000);
-          setTimeout(game.initializeNewGame, 3000);
+          ui.display.displayMessages("!!", "You", "Lost");
+          setTimeout(game.initializeNewGame, 4000);
         } else {
-          setTimeout(() => $(".redMessageBox").text("Try"), 1000);
-          setTimeout(() => $(".redMessageBox").text("Again"), 2000);
-          setTimeout(function () {
-            $(".redMessageBox").text("--");
-            game.performCompPattern();
-          }, 3000);
+          ui.display.displayMessages("!!", "Try", "Again", "--");
+          setTimeout(game.performCompPattern, 3000);
         }
       } else if (this.humanPattern.length === this.compPattern.length) {
-        this.displayLevel();
+        this.updateLevel();
         if (this.humanPattern.length < 20) {
           setTimeout(game.generateNewCompMove, 500);
         } else {
-          setTimeout(() => $(".redMessageBox").text("You"), 1000);
-          setTimeout(() => $(".redMessageBox").text("Win!"), 2000);
+          ui.display.displayMessages("You", "Win!");
           setTimeout(game.initializeNewGame, 5000);
         }
       }
     }
   };
 
-  
+
   var ui = {
     buttons: {
       setupOnOffButton: (function () {
@@ -129,6 +123,19 @@
       }
     },
     display: {
+      displayMessages: function () {
+        var messages = Array.from(arguments);
+        $(".redMessageBox").text(messages.shift());
+        var i = 0;
+        var displayEachMessage = setInterval(function () {
+          if (i < messages.length) {
+            $(".redMessageBox").text(messages[i]);
+            i++;
+          } else {
+            clearInterval(displayEachMessage);
+          }
+        }, 1000);
+      },
       displayPattern: function (selectedButtonPosition) {
         if (game.activeGame) {
           ui.audio.playSample(selectedButtonPosition);
@@ -155,10 +162,10 @@
           var engine = new jWebAudio.SoundEngine();
           ui.audio.audioSource = engine.addSoundSource({
             'url': [
-              "https://raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound0.mp3",
-              "https://raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound1.mp3",
-              "https://raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound2.mp3",
-              "https://raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound3.mp3"
+              "audio/simonSound0.mp3",
+              "audio/simonSound1.mp3",
+              "audio/simonSound2.mp3",
+              "audio/simonSound3.mp3"
             ],
             'multishot': true,
             'preLoad': true

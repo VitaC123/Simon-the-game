@@ -155,10 +155,10 @@
           var engine = new jWebAudio.SoundEngine();
           ui.audio.audioSource = engine.addSoundSource({
             'url': [
-              "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3",
-              "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3",
-              "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3",
-              "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"
+              "https://raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound0.mp3",
+              "https://raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound1.mp3",
+              "https://raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound2.mp3",
+              "https://raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound3.mp3"
             ],
             'multishot': true,
             'preLoad': true

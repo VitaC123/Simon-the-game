@@ -1,3 +1,12 @@
+@mixin user-select($none) {
+  -webkit-touch-callout: $none;
+  -webkit-user-select: $none;
+  -khtml-user-select: $none;
+  -moz-user-select: $none;
+  -ms-user-select: $none;
+  user-select: $none;
+}
+
 body {
   margin: 3%;
   font-size: 16px;
@@ -18,15 +27,11 @@ body {
   border-radius: 100%;
   box-shadow: 1px 2.5px 16px 3px #0c1115;
   background: linear-gradient(to right, #131522, #343436, #242b33);
-}
-@media (max-width: 685px) {
-  .outerDarkCircle {
+  @media (max-width: 685px) {
     height: 90vw;
     width: 90vw;
   }
-}
-@media (max-height: 685px) {
-  .outerDarkCircle {
+  @media (max-height: 685px) {
     height: 70vh;
     width: 70vh;
   }
@@ -59,17 +64,17 @@ body {
   text-align: center;
   color: #de0e0e;
   overflow: hidden;
-}
-.miltonBradleyLogo span {
-  color: #0096f3;
-}
-.miltonBradleyLogo > :last-child {
-  position: relative;
-  top: -73%;
-  font-size: 0.6vw;
-  font-style: italic;
-  color: black;
-  white-space: nowrap;
+  span {
+    color: #0096f3;
+  }
+  & >:last-child {
+    position: relative;
+    top: -73%;
+    font-size: 0.6vw;
+    font-style: italic;
+    color: black;
+    white-space: nowrap;
+  }
 }
 
 .innerLightCircle {
@@ -81,14 +86,14 @@ body {
   margin-bottom: -80%;
   border-radius: 100%;
   background-image: radial-gradient(#808183, #a5b9c2, #717274 80%);
-}
-.innerLightCircle h1 {
-  position: relative;
-  top: 15%;
-  margin: auto;
-  font-size: 8.4vw;
-  font-family: 'Alfa Slab One', arial;
-  text-align: center;
+  h1 {
+    position: relative;
+    top: 15%;
+    margin: auto;
+    font-size: 8.4vw;
+    font-family: 'Alfa Slab One', arial;
+    text-align: center;
+  }
 }
 
 .redMessageBox {
@@ -116,12 +121,7 @@ input[type="checkbox"]:empty {
 }
 
 label {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  @include user-select(none);
 }
 
 .strictModeEnable {
@@ -134,17 +134,19 @@ label {
   font-size: 1vw;
   text-align: center;
   cursor: pointer;
-}
-.strictModeEnable label {
-  padding: 0.25vw;
-  border: 1px solid black;
-  border-radius: 3px;
-  background: #005e9c;
-  text-align: center;
-}
-.strictModeEnable input[type="checkbox"]:checked:not(.disabled) ~ label {
-  color: black;
-  background-image: radial-gradient(#0091f2, #009cff, #005e9c);
+  label {
+    padding: 0.25vw;
+    border: 1px solid black;
+    border-radius: 3px;
+    background: #005e9c;
+    text-align: center;
+  }
+  input[type="checkbox"] {
+    &:checked:not(.disabled) ~ label {
+      color: black;
+      background-image: radial-gradient(#0091f2, #009cff, #005e9c);
+    }
+  }
 }
 
 .startBtn {
@@ -163,15 +165,10 @@ label {
   font-size: 0.7vw;
   line-height: 3vw;
   font-weight: bold;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.startBtn:active:not(.disabled) {
-  background-image: radial-gradient(#f5423b, #ffb5ad, #f5423b);
+  @include user-select(none);
+  &:active:not(.disabled) {
+    background-image: radial-gradient(#f5423b, #ffb5ad, #f5423b);
+  }
 }
 
 .switch {
@@ -185,9 +182,9 @@ label {
   border: 1px solid black;
   overflow: hidden;
   z-index: 1;
-}
-.switch input {
-  display: none;
+  input {
+    display: none;
+  }
 }
 
 .onOffButton {
@@ -200,19 +197,19 @@ label {
   cursor: pointer;
   -webkit-transition: 0.1s;
   transition: 0.1s;
-}
-.onOffButton:before {
-  position: absolute;
-  content: "|||";
-  font-size: 2vw;
-  line-height: 2.46vw;
-  height: 2vw;
-  width: 2vw;
-  left: 0.25vw;
-  top: 0.25vw;
-  background-color: #4e4f55;
-  -webkit-transition: 0.1s;
-  transition: 0.1s;
+  &:before {
+    position: absolute;
+    content: "|||";
+    font-size: 2vw;
+    line-height: 2.46vw;
+    height: 2vw;
+    width: 2vw;
+    left: 0.25vw;
+    top: 0.25vw;
+    background-color: #4e4f55;
+    -webkit-transition: 0.1s;
+    transition: 0.1s;
+  }
 }
 
 input:checked + .onOffButton:before {
@@ -227,40 +224,36 @@ input:checked + .onOffButton:before {
   text-align: right;
   font-size: 1.2vw;
   z-index: 0;
-}
-.offOnLabel > :first-child {
-  float: left;
+  & >:first-child {
+    float: left;
+  }
 }
 
-@media (max-height: 685px), (min-width: 685px) {
+@media (max-height: 685px),
+(min-width: 685px) {
   .innerLightCircle > h1 {
     font-size: 7vh;
   }
-
   .miltonBradleyLogo {
     font-size: 2vh;
+    & >:last-child {
+      font-size: 0.5vh;
+      top: -56%;
+    }
   }
-  .miltonBradleyLogo > :last-child {
-    font-size: 0.5vh;
-    top: -56%;
-  }
-
   .redMessageBox {
     font-size: 2.75vh;
     padding: 0;
   }
-
   .startBtn {
     border-width: 0.6vh;
     font-size: 0.6vh;
     line-height: 3vh;
   }
-
   .switch {
     height: 2vh;
     width: 3.25vh;
   }
-
   .onOffButton:before {
     line-height: 2vh;
     font-size: 2vh;
@@ -269,26 +262,25 @@ input:checked + .onOffButton:before {
     left: 0.1vh;
     top: 0.1vh;
   }
-
   input:checked + .onOffButton:before {
     transform: translateX(1.3vh);
   }
-
   .offOnLabel {
     font-size: 1vh;
   }
-
   .strictModeEnable {
     line-height: 1vh;
     font-size: 0.9vh;
   }
 }
+
 @media (min-height: 530px) {
   .onOffButton:before {
     left: 0;
     bottom: 0;
   }
 }
+
 .button {
   position: relative;
   height: 37%;

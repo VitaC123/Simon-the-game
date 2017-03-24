@@ -15,15 +15,15 @@
       }.bind(game), 1500);
     },
     updateLevel: function () {
-      var currentLevel = game.humanPattern.length;
+      var currentLevel = this.humanPattern.length;
       if (currentLevel < 10) {
         currentLevel = "0" + currentLevel;
       }
       ui.display.displayMessages(currentLevel);
     },
     generateNewCompMove: function () {
-      game.compPattern.push(Math.floor(Math.random() * 4));
-      game.performCompPattern();
+      this.compPattern.push(Math.floor(Math.random() * 4));
+      this.performCompPattern();
     },
     performCompPattern: function () {
       this.humanTurn = false;
@@ -51,28 +51,27 @@
         this.humanTurn = false;
         if (this.strictMode) {
           ui.display.displayMessages("!!", "You", "Lost");
-          setTimeout(game.initializeNewGame, 4000);
+          setTimeout(this.initializeNewGame.bind(this), 4000);
         } else {
           ui.display.displayMessages("!!", "Try", "Again", "--");
-          setTimeout(game.performCompPattern, 3000);
+          setTimeout(this.performCompPattern.bind(this), 3000);
         }
       } else if (this.humanPattern.length === this.compPattern.length) {
         this.updateLevel();
         if (this.humanPattern.length < 20) {
-          setTimeout(game.generateNewCompMove, 500);
+          setTimeout(this.generateNewCompMove.bind(this), 500);
         } else {
           ui.display.displayMessages("You", "Win!");
-          setTimeout(game.initializeNewGame, 5000);
+          setTimeout(this.initializeNewGame.bind(this), 5000);
         }
       }
     }
   };
 
-
   var ui = {
     buttons: {
-      setupOnOffButton: (function () {
-        $(".onOffButton").mousedown(function () {
+      setupOnOffButton: function () {
+        $(".onOffButton").click(function () {
           if (!$(".switch input").prop("checked")) {
             ui.buttons.setupStartButton();
             ui.buttons.setupStrictModeButton();
@@ -86,7 +85,7 @@
             $(".redMessageBox").css("color", "#880505").text("00");
           }
         });
-      })(),
+      },
       setupStartButton: function () {
         $(".startBtn").removeClass("disabled");
         $(".startBtn").mouseup(function () {
@@ -126,11 +125,9 @@
       displayMessages: function () {
         var messages = Array.from(arguments);
         $(".redMessageBox").text(messages.shift());
-        var i = 0;
         var displayEachMessage = setInterval(function () {
-          if (i < messages.length) {
-            $(".redMessageBox").text(messages[i]);
-            i++;
+          if (messages.length > 0) {
+            $(".redMessageBox").text(messages.shift());
           } else {
             clearInterval(displayEachMessage);
           }
@@ -157,24 +154,27 @@
       }
     },
     audio: {
-      preLoadAudioSamples: (function () {
-        $(document).ready(function () {
-          var engine = new jWebAudio.SoundEngine();
-          ui.audio.audioSource = engine.addSoundSource({
-            'url': [
-              "audio/simonSound0.mp3",
-              "audio/simonSound1.mp3",
-              "audio/simonSound2.mp3",
-              "audio/simonSound3.mp3"
-            ],
-            'multishot': true,
-            'preLoad': true
-          });
+      preLoadAudioSamples: function () {
+        var engine = new jWebAudio.SoundEngine();
+        this.audioSource = engine.addSoundSource({
+          'url': [
+            "//raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound0.mp3",
+            "//raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound1.mp3",
+            "//raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound2.mp3",
+            "//raw.githubusercontent.com/VitaC123/Simon-the-game/master/audio/simonSound3.mp3"
+          ],
+          'multishot': true,
+          'preLoad': true
         });
-      })(),
+      },
       playSample: function (selectedButtonPosition) {
-        ui.audio.audioSource[selectedButtonPosition].sound.play();
+        this.audioSource[selectedButtonPosition].sound.play();
       }
     }
   };
+
+  $(document).ready(function () {
+    ui.buttons.setupOnOffButton();
+    ui.audio.preLoadAudioSamples();
+  });
 })();
